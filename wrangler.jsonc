@@ -7,6 +7,9 @@
 "name": "lenitsa-translate",
 
 {
+
+// wrangler.jsonc
+"name": "lenitsa-translate",
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "workflows-starter-template",
 	"main": "worker/index.ts",
