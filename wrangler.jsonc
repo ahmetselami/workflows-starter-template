@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "lenitsa-translate",
+  "name": "workflows-starter-template",
   "main": "worker/index.ts",
   "compatibility_date": "2024-01-01",
   "ai": {
