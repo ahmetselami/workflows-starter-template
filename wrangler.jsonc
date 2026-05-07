@@ -2,6 +2,10 @@
  * For more details on how to configure Wrangler, refer to:
  * https://developers.cloudflare.com/workers/wrangler/configuration/
  */
+
+// wrangler.jsonc
+"name": "lenitsa-translate",
+
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "workflows-starter-template",
