@@ -5,6 +5,24 @@ const LANGUAGES = {
   nl: 'Dutch', pl: 'Polish', sv: 'Swedish'
 };
 
+const DASHBOARD_CONFIG = {
+  title: 'Lenitsa Translate v2.0',
+  status: 'SİSTEM AKTİF',
+  description: 'Yapay Zeka Destekli Çeviri Motoru',
+  endpoint: '/translate/do',
+  infrastructure: 'Cloudflare Workers AI + M2M100'
+};
+
+const DASHBOARD_STYLES = `
+  body { background: #1a1a1a; color: #fff; font-family: sans-serif; display: flex; justify-content: center; padding: 50px; }
+  .card { background: #2d2d2d; padding: 30px; border-radius: 15px; border-top: 5px solid #f48120; width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+  h1 { color: #f48120; margin-top: 0; }
+  .status { display: inline-block; padding: 5px 10px; background: #27ae60; border-radius: 5px; font-size: 12px; margin-bottom: 20px; }
+  .lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+  .lang-item { background: #3d3d3d; padding: 5px; border-radius: 3px; font-size: 11px; text-align: center; }
+  .info { border-top: 1px solid #444; padding-top: 20px; color: #aaa; font-size: 13px; }
+`;
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -35,33 +53,27 @@ export default {
   },
 
   getDashboardHTML() {
+    const languageItems = Object.entries(LANGUAGES)
+      .map(([code, name]) => `<div class="lang-item">${code.toUpperCase()} - ${name}</div>`)
+      .join('');
+
     return `
       <!DOCTYPE html>
       <html>
       <head>
-        <title>Lenitsa Translation Control Center</title>
+        <title>${DASHBOARD_CONFIG.title}</title>
         <meta charset="UTF-8">
-        <style>
-          body { background: #1a1a1a; color: #fff; font-family: sans-serif; display: flex; justify-content: center; padding: 50px; }
-          .card { background: #2d2d2d; padding: 30px; border-radius: 15px; border-top: 5px solid #f48120; width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-          h1 { color: #f48120; margin-top: 0; }
-          .status { display: inline-block; padding: 5px 10px; background: #27ae60; border-radius: 5px; font-size: 12px; margin-bottom: 20px; }
-          .lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-          .lang-item { background: #3d3d3d; padding: 5px; border-radius: 3px; font-size: 11px; text-align: center; }
-          .info { border-top: 1px solid #444; padding-top: 20px; color: #aaa; font-size: 13px; }
-        </style>
+        <style>${DASHBOARD_STYLES}</style>
       </head>
       <body>
         <div class="card">
-          <h1>Lenitsa Translate v2.0</h1>
-          <div class="status">SİSTEM AKTİF</div>
-          <p>Yapay Zeka Destekli Çeviri Motoru</p>
-          <div class="lang-grid">
-            ${Object.keys(LANGUAGES).map(l => `<div class="lang-item">${l.toUpperCase()} - ${LANGUAGES[l]}</div>`).join('')}
-          </div>
+          <h1>${DASHBOARD_CONFIG.title}</h1>
+          <div class="status">${DASHBOARD_CONFIG.status}</div>
+          <p>${DASHBOARD_CONFIG.description}</p>
+          <div class="lang-grid">${languageItems}</div>
           <div class="info">
-            <strong>Endpoint:</strong> /translate/do<br>
-            <strong>Altyapı:</strong> Cloudflare Workers AI + M2M100
+            <strong>Endpoint:</strong> ${DASHBOARD_CONFIG.endpoint}<br>
+            <strong>Altyapı:</strong> ${DASHBOARD_CONFIG.infrastructure}
           </div>
         </div>
       </body>
