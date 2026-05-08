@@ -1,55 +1,47 @@
 {
-	"name": "workflows-starter-template",
+	"name": "lenitsa-translate",
 	"private": true,
-	"description": "Interactive starter template demonstrating Cloudflare Workflows with real-time status updates",
+	"version": "2.0.0",
+	"description": "Cloudflare Workers AI Translation Engine with KV caching and multi-language support",
 	"cloudflare": {
-		"label": "Workflows Starter",
+		"label": "Lenitsa Translate",
 		"products": [
 			"Workers",
-			"Workflows",
-			"Durable Objects"
+			"Workers AI",
+			"KV Storage"
 		],
 		"categories": [
-			"starter"
+			"translation"
 		],
-		"publish": true,
-		"preview_image_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/4380d39a-b907-437c-e784-500fcc10cb00/preview",
-		"preview_icon_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/6d6e9a49-5c10-4ef6-bfa8-b6577a656300/public",
-		"docs_url": "https://developers.cloudflare.com/workflows/"
+		"publish": true
 	},
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
-		"build": "tsc -b && vite build",
+		"dev": "wrangler dev",
+		"build": "tsc -b && wrangler build",
 		"check": "tsc && wrangler deploy --dry-run",
 		"lint": "eslint .",
-		"preview": "npm run build && vite preview",
+		"preview": "npm run build && wrangler preview",
 		"deploy": "npm run build && wrangler deploy",
+		"deploy:production": "npm run build && wrangler deploy --env production",
+		"deploy:staging": "npm run build && wrangler deploy --env staging",
+		"deploy:development": "wrangler dev --env development",
 		"cf-typegen": "wrangler types",
-		"test": "vitest run"
+		"test": "vitest run",
+		"test:watch": "vitest"
 	},
-	"dependencies": {
-		"react": "^19.1.2",
-		"react-dom": "^19.1.2"
-	},
+	"dependencies": {},
 	"devDependencies": {
-		"@cloudflare/vite-plugin": "^1.15.3",
-		"@cloudflare/vitest-pool-workers": "^0.10.14",
+		"@cloudflare/workers-types": "^4.20250101.0",
+		"@types/node": "^20.0.0",
 		"@eslint/js": "^9.33.0",
-		"@types/react": "^19.1.10",
-		"@types/react-dom": "^19.1.7",
-		"@vitejs/plugin-react-swc": "^4.0.0",
-		"autoprefixer": "^10.4.22",
 		"eslint": "^9.33.0",
-		"eslint-plugin-react-hooks": "^5.2.0",
-		"eslint-plugin-react-refresh": "^0.4.20",
-		"globals": "^16.3.0",
-		"postcss": "^8.5.6",
-		"tailwindcss": "^3.4.18",
 		"typescript": "~5.8.3",
 		"typescript-eslint": "^8.39.1",
-		"vite": "^7.1.2",
-		"vitest": "3.2.x",
-		"wrangler": "^4.51.0"
+		"wrangler": "^4.51.0",
+		"vitest": "3.2.x"
+	},
+	"engines": {
+		"node": ">=20.0.0"
 	}
 }
