@@ -17,18 +17,10 @@
 	},
 	"type": "module",
 	"scripts": {
-		"dev": "wrangler dev",
-		"build": "tsc -b && wrangler build",
-		"check": "tsc && wrangler deploy --dry-run",
-		"lint": "eslint .",
-		"preview": "npm run build && wrangler preview",
-		"deploy": "npm run build && wrangler deploy",
-		"deploy:production": "npm run build && wrangler deploy --env production",
-		"deploy:staging": "npm run build && wrangler deploy --env staging",
-		"deploy:development": "wrangler dev --env development",
-		"cf-typegen": "wrangler types",
-		"test": "vitest run",
-		"test:watch": "vitest"
+  "dev": "wrangler dev",
+  "build": "wrangler build",
+  "deploy": "wrangler deploy"
+
 	},
 	"dependencies": {},
 	"devDependencies": {
