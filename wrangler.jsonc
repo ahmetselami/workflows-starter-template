@@ -1,14 +1,85 @@
 {
   "name": "lenitsa-translate",
-  "main": "index.ts",
-  "compatibility_date": "2024-01-01",
+  "main": "worker/index.ts",
+  "compatibility_date": "2024-12-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // AI Binding
   "ai": {
     "binding": "AI"
   },
+
+  // KV Namespaces for caching translations
   "kv_namespaces": [
     {
       "binding": "TRANSLATIONS_KV",
-      "id": "85b5517b5c3c466099c92b33fe8d5d3d"
+      "id": "85b5517b5c3c466099c92b33fe8d5d3d",
+      "preview_id": "85b5517b5c3c466099c92b33fe8d5d3d"
     }
-  ]
+  ],
+
+  // Routes configuration
+  "routes": [
+    {
+      "pattern": "example.com/translate/*",
+      "zone_name": "example.com"
+    }
+  ],
+
+  // Environment-specific configurations
+  "env": {
+    "production": {
+      "routes": [
+        {
+          "pattern": "api.example.com/translate/*",
+          "zone_name": "example.com"
+        }
+      ],
+      "kv_namespaces": [
+        {
+          "binding": "TRANSLATIONS_KV",
+          "id": "85b5517b5c3c466099c92b33fe8d5d3d"
+        }
+      ]
+    },
+    "staging": {
+      "routes": [
+        {
+          "pattern": "staging.example.com/translate/*",
+          "zone_name": "example.com"
+        }
+      ],
+      "kv_namespaces": [
+        {
+          "binding": "TRANSLATIONS_KV",
+          "id": "85b5517b5c3c466099c92b33fe8d5d3d"
+        }
+      ]
+    },
+    "development": {
+      "kv_namespaces": [
+        {
+          "binding": "TRANSLATIONS_KV",
+          "id": "dev-kv-namespace"
+        }
+      ]
+    }
+  },
+
+  // Observability
+  "observability": {
+    "enabled": true
+  },
+
+  // Limits
+  "limits": {
+    "cpu_ms": 30000
+  },
+
+  // Build configuration
+  "build": {
+    "command": "npm run build",
+    "cwd": "./",
+    "watch_paths": ["worker/**/*.ts"]
+  }
 }
